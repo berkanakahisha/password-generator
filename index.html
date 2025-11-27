@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Parola Oluşturucu</title>
+
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: #e8ecf3;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card {
+        background: #fff;
+        width: 380px;
+        padding: 30px;
+        border-radius: 18px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    h2 {
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: #2a3c54;
+    }
+
+    .section {
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    label {
+        font-size: 15px;
+        color: #2a3c54;
+    }
+
+    input[type="number"] {
+        width: 70px;
+        padding: 8px;
+        margin-left: 10px;
+        border-radius: 8px;
+        border: 1px solid #cfd6df;
+        font-size: 15px;
+    }
+
+    input[type="range"] {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+        margin-top: 10px;
+    }
+
+    .password-box {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid #cfd6df;
+        margin: 15px 0;
+        font-size: 16px;
+        text-align: center;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+
+    .btn-copy {
+        background: #6ea8ff;
+        color: #fff;
+    }
+    .btn-copy:hover {
+        background: #8abaff;
+    }
+
+    .btn-generate {
+        background: #3f8cff;
+        color: #fff;
+    }
+    .btn-generate:hover {
+        background: #72aaff;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>🔐 Parola Oluşturucu</h2>
+
+    <div class="section">
+        <label>Parola Uzunluğu:</label>
+        <input type="number" id="length" min="4" max="32" value="12">
+        <input type="range" id="slider" min="4" max="32" value="12">
+    </div>
+
+    <div class="section options">
+        <label><input type="checkbox" id="upper" checked> Büyük Harf</label>
+        <label><input type="checkbox" id="lower" checked> Küçük Harf</label>
+        <label><input type="checkbox" id="numbers" checked> Rakam</label>
+        <label><input type="checkbox" id="symbols" checked> Sembol</label>
+    </div>
+
+    <input class="password-box" id="result" readonly>
+
+    <button class="btn-copy" onclick="copyPassword()">Kopyala</button>
+    <button class="btn-generate" onclick="generate()">Parola Oluştur</button>
+</div>
+
+<script>
+    let lengthInput = document.getElementById("length");
+    let slider = document.getElementById("slider");
+
+    slider.oninput = () => lengthInput.value = slider.value;
+    lengthInput.oninput = () => slider.value = lengthInput.value;
+
+    function generate() {
+        let length = parseInt(lengthInput.value);
+        let chars = "";
+
+        if (document.getElementById("upper").checked)
+            chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        if (document.getElementById("lower").checked)
+            chars += "abcdefghijklmnopqrstuvwxyz";
+        if (document.getElementById("numbers").checked)
+            chars += "0123456789";
+        if (document.getElementById("symbols").checked)
+            chars += "!@#$%^&*()-_=+[]{};:,.<>/?";
+
+        if (chars === "") {
+            alert("En az bir seçenek seçmelisiniz!");
+            return;
+        }
+
+        let password = "";
+        for (let i = 0; i < length; i++) {
+            password += chars[Math.floor(Math.random() * chars.length)];
+        }
+
+        document.getElementById("result").value = password;
+    }
+
+    function copyPassword() {
+        let box = document.getElementById("result");
+        box.select();
+        navigator.clipboard.writeText(box.value);
+        alert("Kopyalandı!");
+    }
+</script>
+
+</body>
+</html>
