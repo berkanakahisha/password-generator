@@ -1,150 +1,194 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Parola Oluşturucu</title>
+<title>Gelişmiş Parola Oluşturucu</title>
 
 <style>
-    :root {
-        --bg: #e8ecf3;
-        --text: #2a3c54;
-        --card: #ffffff;
-        --input-bg: #fff;
-        --accent: #3f8cff;
-        --accent-light: #77aaff;
-        --strength-weak: #ff4f4f;
-        --strength-medium: #ffbf4f;
-        --strength-strong: #4fd164;
-    }
+/* ===================== */
+/*  ----- TEMALAR ------ */
+/* ===================== */
+:root {
+    --bg: #eef1f7;
+    --card: #ffffff;
+    --text: #1f2a37;
+    --input-bg: #ffffff;
+    --accent: #3f8cff;
+    --accent-light: #6ea8ff;
+    --accent-dark: #2a6edb;
+    --weak: #ff5b5b;
+    --medium: #ffb545;
+    --strong: #4ce364;
+}
 
-    /* DARK MODE */
-    .dark {
-        --bg: #1d1f21;
-        --text: #ececec;
-        --card: #2a2d31;
-        --input-bg: #3a3d41;
-        --accent: #7fa8ff;
-        --accent-light: #a9c3ff;
-    }
+/* Dark Theme */
+.dark {
+    --bg: #1a1d21;
+    --card: #292e33;
+    --text: #e3e3e3;
+    --input-bg: #353a3f;
+    --accent: #82aaff;
+    --accent-light: #a8c5ff;
+    --accent-dark: #668df5;
+}
 
-    body {
-        font-family: 'Segoe UI', sans-serif;
-        background: var(--bg);
-        color: var(--text);
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 15px;
-        transition: background 0.3s, color 0.3s;
-    }
+/* Blue Theme */
+.blue {
+    --bg: #dce9ff;
+    --card: #ffffff;
+    --text: #1d2f4a;
+    --input-bg: #f2f6ff;
+    --accent: #3477ff;
+    --accent-light: #5f94ff;
+    --accent-dark: #2357dd;
+}
 
-    .card {
-        background: var(--card);
-        width: 100%;
-        max-width: 380px;
-        padding: 25px;
-        border-radius: 18px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-        text-align: center;
-        transition: background 0.3s;
-    }
+/* Purple Theme */
+.purple {
+    --bg: #f2e8ff;
+    --card: #ffffff;
+    --text: #2b1f44;
+    --input-bg: #f9f3ff;
+    --accent: #8a4fff;
+    --accent-light: #a973ff;
+    --accent-dark: #6d2edb;
+}
 
-    h2 {
-        font-weight: 600;
-        margin-bottom: 20px;
-    }
+/* ===================== */
+/*        GENEL          */
+/* ===================== */
+body {
+    font-family: "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    transition: 0.25s;
+}
 
-    label {
-        font-size: 15px;
-    }
+.card {
+    background: var(--card);
+    width: 100%;
+    max-width: 420px;
+    padding: 28px;
+    border-radius: 22px;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+}
 
-    input[type="number"] {
-        width: 70px;
-        padding: 8px;
-        margin-left: 10px;
-        border-radius: 8px;
-        border: 1px solid #cfd6df;
-        background: var(--input-bg);
-        color: var(--text);
-    }
+/* Fade-in animasyonu */
+@keyframes fadeIn {
+    from {opacity:0; transform: translateY(10px);}
+    to {opacity:1; transform: translateY(0);}
+}
 
-    input[type="range"] {
-        width: 100%;
-        margin-top: 10px;
-    }
+h2 {
+    margin-bottom: 18px;
+}
 
-    .options {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 6px;
-        margin-top: 10px;
-        text-align: left;
-    }
+.section { margin-bottom: 18px; }
 
-    .password-box {
-        width: 100%;
-        padding: 12px;
-        border-radius: 10px;
-        border: 1px solid #cfd6df;
-        background: var(--input-bg);
-        font-size: 16px;
-        margin: 15px 0;
-        text-align: center;
-        color: var(--text);
-    }
+/* INPUTLAR */
+input[type="number"], .password-box {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #cfd6df;
+    font-size: 15px;
+    background: var(--input-bg);
+    color: var(--text);
+}
 
-    button {
-        width: 100%;
-        padding: 12px;
-        border: none;
-        border-radius: 10px;
-        font-size: 16px;
-        cursor: pointer;
-        margin-bottom: 10px;
-    }
+.password-box { margin-top: 12px; }
 
-    .btn-copy {
-        background: var(--accent-light);
-        color: #fff;
-    }
+/* Slider */
+input[type="range"] {
+    width: 100%;
+    margin-top: 10px;
+}
 
-    .btn-generate {
-        background: var(--accent);
-        color: #fff;
-    }
+/* Checkbox grid */
+.options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    text-align: left;
+}
 
-    .btn-theme {
-        background: #444444;
-        color: #fff;
-        margin-top: 5px;
-    }
+/* BUTTONLAR */
+button {
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 10px;
+    transition: 0.2s;
+}
 
-    /* Strength Bar */
-    .strength-bar {
-        height: 10px;
-        border-radius: 10px;
-        margin-top: -5px;
-        margin-bottom: 15px;
-        background: #ccc;
-        overflow: hidden;
-    }
+button:active {
+    transform: scale(0.97);
+}
 
-    .strength-fill {
-        height: 100%;
-        width: 0%;
-        background: var(--strength-weak);
-        transition: width 0.3s;
-    }
+.btn-generate { background: var(--accent); color: white; }
+.btn-copy { background: var(--accent-light); color: white; }
+.btn-theme { background: var(--accent-dark); color: white; }
+
+/* Strength bar */
+.strength-bar {
+    height: 10px;
+    border-radius: 10px;
+    background: #ccc;
+    margin: 8px 0 18px 0;
+    overflow: hidden;
+}
+.strength-fill {
+    height: 100%;
+    width: 0%;
+    transition: 0.3s;
+}
+
+/* Copy animation (mobil uyumlu) */
+#copyPopup {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s ease;
+    font-size: 15px;
+}
+#copyPopup.show { opacity: 1; bottom: 60px; }
+
+/* Show/Hide Password */
+.show-btn {
+    margin-top: -44px;
+    text-align: right;
+    font-size: 14px;
+    cursor: pointer;
+    color: var(--accent-dark);
+    user-select: none;
+}
 </style>
 </head>
 
 <body>
 
 <div class="card">
-    <h2>🔐 Parola Oluşturucu</h2>
+
+    <h2>✨ Gelişmiş Parola Oluşturucu</h2>
 
     <div class="section">
         <label>Parola Uzunluğu:</label>
@@ -161,76 +205,116 @@
 
     <input class="password-box" id="result" readonly>
 
-    <!-- Strength Bar -->
+    <div class="show-btn" onclick="togglePassword()">👁 Göster/Gizle</div>
+
     <div class="strength-bar"><div class="strength-fill" id="strength"></div></div>
 
     <button class="btn-copy" onclick="copyPassword()">Kopyala</button>
     <button class="btn-generate" onclick="generate()">Parola Oluştur</button>
-    <button class="btn-theme" onclick="toggleTheme()">🌙 Tema Değiştir</button>
+    <button class="btn-theme" onclick="switchTheme()">🎨 Tema Değiştir</button>
+
+    <button class="btn-generate" onclick="generateMeaningful()">🔄 Anlamlı Parola Oluştur</button>
+
 </div>
 
+<div id="copyPopup">Kopyalandı!</div>
+
 <script>
-    let lengthInput = document.getElementById("length");
-    let slider = document.getElementById("slider");
+/* Ses efekti */
+const clickSound = new Audio("https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg");
 
-    slider.oninput = () => lengthInput.value = slider.value;
-    lengthInput.oninput = () => slider.value = lengthInput.value;
+function playSound() { clickSound.currentTime = 0; clickSound.play(); }
 
-    function generate() {
-        let length = parseInt(lengthInput.value);
-        let chars = "";
+let lengthInput = document.getElementById("length");
+let slider = document.getElementById("slider");
 
-        if (document.getElementById("upper").checked) chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        if (document.getElementById("lower").checked) chars += "abcdefghijklmnopqrstuvwxyz";
-        if (document.getElementById("numbers").checked) chars += "0123456789";
-        if (document.getElementById("symbols").checked) chars += "!@#$%^&*()-_=+[]{};:,.<>/?";
+/* Slider senkronizasyonu */
+slider.oninput = () => lengthInput.value = slider.value;
+lengthInput.oninput = () => slider.value = lengthInput.value;
 
-        if (chars === "") {
-            alert("En az bir seçenek seçmelisiniz!");
-            return;
-        }
+/* Rastgele klasik parola */
+function generate() {
+    playSound();
+    let length = parseInt(lengthInput.value);
+    let chars = "";
 
-        let password = "";
-        for (let i = 0; i < length; i++) {
-            password += chars[Math.floor(Math.random() * chars.length)];
-        }
+    if (upper.checked) chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    if (lower.checked) chars += "abcdefghijklmnopqrstuvwxyz";
+    if (numbers.checked) chars += "0123456789";
+    if (symbols.checked) chars += "!@#$%^&*()-_=+[]{};:,.<>/?";
 
-        document.getElementById("result").value = password;
-        updateStrength(password);
+    if (!chars) return alert("En az bir seçenek seçmelisin!");
+
+    let pw = "";
+    for (let i = 0; i < length; i++) {
+        pw += chars[Math.floor(Math.random() * chars.length)];
     }
+    result.value = pw;
+    updateStrength(pw);
+}
 
-    /* Strength Meter */
-    function updateStrength(pw) {
-        const fill = document.getElementById("strength");
-        let score = 0;
+/* Rastgele anlamlı parola */
+function generateMeaningful() {
+    playSound();
 
-        if (pw.length >= 8) score++;
-        if (/[A-Z]/.test(pw)) score++;
-        if (/[a-z]/.test(pw)) score++;
-        if (/[0-9]/.test(pw)) score++;
-        if (/[!@#$%^&*()\-_=+\[\]{};:,.<>/?]/.test(pw)) score++;
+    const words = ["kedi","mavi","güneş","dalga","ışık","bulut","çay","kırmızı","koala","şimşek","sultan","çam","deniz","yıldız"];
+    let w = words[Math.floor(Math.random()*words.length)];
+    let num = Math.floor(100 + Math.random()*900);
+    let sym = "!@#$%&*"[Math.floor(Math.random()*7)];
 
-        let percent = (score / 5) * 100;
+    let pw = w + num + sym;
+    result.value = pw;
+    updateStrength(pw);
+}
 
-        fill.style.width = percent + "%";
+/* Strength meter */
+function updateStrength(pw) {
+    const fill = document.getElementById("strength");
+    let score = 0;
 
-        if (percent < 40) fill.style.background = "var(--strength-weak)";
-        else if (percent < 80) fill.style.background = "var(--strength-medium)";
-        else fill.style.background = "var(--strength-strong)";
+    if (pw.length >= 8) score++;
+    if (/[A-Z]/.test(pw)) score++;
+    if (/[a-z]/.test(pw)) score++;
+    if (/[0-9]/.test(pw)) score++;
+    if (/[!@#$%^&*()\-_=+\[\]{};:,.<>/?]/.test(pw)) score++;
+
+    let percent = (score / 5) * 100;
+    fill.style.width = percent + "%";
+
+    if (percent < 40) fill.style.background = "var(--weak)";
+    else if (percent < 80) fill.style.background = "var(--medium)";
+    else fill.style.background = "var(--strong)";
+}
+
+/* Copy animation */
+function copyPassword() {
+    playSound();
+    navigator.clipboard.writeText(result.value);
+
+    let popup = document.getElementById("copyPopup");
+    popup.classList.add("show");
+    setTimeout(() => popup.classList.remove("show"), 1000);
+}
+
+/* Şifre göster/gizle */
+function togglePassword() {
+    playSound();
+    if (result.type === "password") {
+        result.type = "text";
+    } else {
+        result.type = "password";
     }
+}
 
-    /* Copy */
-    function copyPassword() {
-        let box = document.getElementById("result");
-        box.select();
-        navigator.clipboard.writeText(box.value);
-        alert("Kopyalandı!");
-    }
+/* Tema değiştirme */
+const themes = ["default","dark","blue","purple"];
+let tIndex = 0;
 
-    /* Dark Mode Toggle */
-    function toggleTheme() {
-        document.body.classList.toggle("dark");
-    }
+function switchTheme() {
+    playSound();
+    tIndex = (tIndex + 1) % themes.length;
+    document.body.className = themes[tIndex];
+}
 </script>
 
 </body>
