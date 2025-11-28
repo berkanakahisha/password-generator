@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gelişmiş Parola Oluşturucu</title>
 
-<!-- QR CODE KÜTÜPHANESİ -->
+<!-- QR CODE -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 
 <style>
@@ -24,8 +24,6 @@
     --medium: #ffb545;
     --strong: #4ce364;
 }
-
-/* Dark Theme */
 .dark {
     --bg: #1a1d21;
     --card: #292e33;
@@ -35,8 +33,6 @@
     --accent-light: #a8c5ff;
     --accent-dark: #668df5;
 }
-
-/* Blue Theme */
 .blue {
     --bg: #dce9ff;
     --card: #ffffff;
@@ -46,8 +42,6 @@
     --accent-light: #5f94ff;
     --accent-dark: #2357dd;
 }
-
-/* Purple Theme */
 .purple {
     --bg: #f2e8ff;
     --card: #ffffff;
@@ -58,9 +52,6 @@
     --accent-dark: #6d2edb;
 }
 
-/* ===================== */
-/*        GENEL          */
-/* ===================== */
 body {
     font-family: "Segoe UI", sans-serif;
     background: var(--bg);
@@ -84,19 +75,8 @@ body {
     text-align: center;
 }
 
-/* Fade-in animasyonu */
-@keyframes fadeIn {
-    from {opacity:0; transform: translateY(10px);}
-    to {opacity:1; transform: translateY(0);}
-}
-
-h2 {
-    margin-bottom: 18px;
-}
-
 .section { margin-bottom: 18px; }
 
-/* INPUTLAR */
 input[type="number"], .password-box {
     width: 100%;
     padding: 12px;
@@ -106,22 +86,14 @@ input[type="number"], .password-box {
     background: var(--input-bg);
     color: var(--text);
 }
-
-/* Parola kutusu – ortalı, kalın, büyük */
 .password-box {
     margin-top: 12px;
     text-align: center;
     font-weight: 700;
     font-size: 20px;
 }
+input[type="range"] { width: 100%; margin-top: 10px; }
 
-/* Slider */
-input[type="range"] {
-    width: 100%;
-    margin-top: 10px;
-}
-
-/* Checkbox grid */
 .options {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -129,19 +101,6 @@ input[type="range"] {
     text-align: left;
 }
 
-/* Zorunlu karakter sayıları grid */
-.requirements {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-top: 10px;
-    text-align: left;
-}
-.requirements label {
-    font-size: 13px;
-}
-
-/* BUTTONLAR */
 button {
     padding: 12px;
     border-radius: 10px;
@@ -152,17 +111,13 @@ button {
     margin-bottom: 10px;
     transition: 0.2s;
 }
-
-button:active {
-    transform: scale(0.97);
-}
+button:active { transform: scale(0.97); }
 
 .btn-generate { background: var(--accent); color: white; }
 .btn-copy { background: var(--accent-light); color: white; }
 .btn-theme { background: var(--accent-dark); color: white; }
 .btn-qr { background:#555; color:white; }
 
-/* Strength bar */
 .strength-bar {
     height: 10px;
     border-radius: 10px;
@@ -176,7 +131,6 @@ button:active {
     transition: 0.3s;
 }
 
-/* Copy animation (mobil uyumlu) */
 #copyPopup {
     position: fixed;
     bottom: 40px;
@@ -193,7 +147,6 @@ button:active {
 }
 #copyPopup.show { opacity: 1; bottom: 60px; }
 
-/* Show/Hide Password */
 .show-btn {
     margin-top: 6px;
     text-align: right;
@@ -203,7 +156,6 @@ button:active {
     user-select: none;
 }
 
-/* QR kutusu */
 #qrBox {
     margin-top: 15px;
     display: none;
@@ -217,49 +169,22 @@ button:active {
 
     <h2>✨ Gelişmiş Parola Oluşturucu</h2>
 
-    <!-- PAROLA UZUNLUĞU -->
     <div class="section">
         <label>Parola Uzunluğu:</label>
         <input type="number" id="pwLength" min="4" max="50" value="12">
         <input type="range" id="slider" min="4" max="50" value="12">
     </div>
 
-    <!-- PAROLA KUTUSU (UZUNLUĞUN HEMEN ALTINDA) -->
     <input class="password-box" id="result" readonly>
     <div class="show-btn" onclick="togglePassword()">👁 Göster / Gizle</div>
 
-    <!-- GÜÇ GÖSTERGESİ -->
     <div class="strength-bar"><div class="strength-fill" id="strength"></div></div>
 
-    <!-- KARAKTER TİPİ SEÇİMİ -->
     <div class="section options">
         <label><input type="checkbox" id="upper" checked> Büyük Harf</label>
         <label><input type="checkbox" id="lower" checked> Küçük Harf</label>
         <label><input type="checkbox" id="numbers" checked> Rakam</label>
         <label><input type="checkbox" id="symbols" checked> Sembol</label>
-    </div>
-
-    <!-- ZORUNLU SAYILAR -->
-    <div class="section">
-        <strong>Zorunlu Karakter Sayıları (en az):</strong>
-        <div class="requirements">
-            <div>
-                <label>Büyük Harf</label>
-                <input type="number" id="reqUpper" min="0" value="1">
-            </div>
-            <div>
-                <label>Küçük Harf</label>
-                <input type="number" id="reqLower" min="0" value="1">
-            </div>
-            <div>
-                <label>Rakam</label>
-                <input type="number" id="reqNum" min="0" value="1">
-            </div>
-            <div>
-                <label>Sembol</label>
-                <input type="number" id="reqSym" min="0" value="1">
-            </div>
-        </div>
     </div>
 
     <button class="btn-copy" onclick="copyPassword()">📋 Kopyala</button>
@@ -268,7 +193,7 @@ button:active {
     <button class="btn-theme" onclick="switchTheme()">🎨 Tema Değiştir</button>
 
     <label style="display:block; margin:8px 0;">
-        <input type="checkbox" id="soundToggle" > Tıklama Sesini Aç
+        <input type="checkbox" id="soundToggle"> Tıklama Sesini Aç
     </label>
 
     <button class="btn-qr" onclick="toggleQR()">📱 QR Kod Göster</button>
@@ -279,17 +204,12 @@ button:active {
 <div id="copyPopup">Kopyalandı!</div>
 
 <script>
-/* ========== SES EFEKTİ OPSİYONEL ========== */
+/* Ses */
 const clickSound = new Audio("https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg");
 const soundToggle = document.getElementById("soundToggle");
+function playSound(){ if(soundToggle.checked){ clickSound.currentTime=0; clickSound.play(); }}
 
-function playSound() {
-    if (!soundToggle.checked) return;
-    clickSound.currentTime = 0;
-    clickSound.play();
-}
-
-/* ========== ELEMENT REFERANSLARI ========== */
+/* Elementler */
 const lengthInput = document.getElementById("pwLength");
 const slider = document.getElementById("slider");
 const passwordInput = document.getElementById("result");
@@ -300,183 +220,117 @@ const lowerCb = document.getElementById("lower");
 const numbersCb = document.getElementById("numbers");
 const symbolsCb = document.getElementById("symbols");
 
-const reqUpperInput = document.getElementById("reqUpper");
-const reqLowerInput = document.getElementById("reqLower");
-const reqNumInput   = document.getElementById("reqNum");
-const reqSymInput   = document.getElementById("reqSym");
+slider.oninput = () => lengthInput.value = slider.value;
+lengthInput.oninput = () => slider.value = lengthInput.value;
 
-/* Slider senkronizasyonu */
-slider.oninput = () => { lengthInput.value = slider.value; };
-lengthInput.oninput = () => { slider.value = lengthInput.value; };
+function rand(str){ return str[Math.floor(Math.random()*str.length)]; }
 
-/* Rastgele karakter seçimi */
-function rand(str) {
-    return str[Math.floor(Math.random() * str.length)];
-}
-
-/* ========== KLASİK PAROLA OLUŞTURMA ========== */
-function generate() {
+/* PAROLA OLUŞTURMA – Zorunlu sayılar olmadan */
+function generate(){
     playSound();
 
-    const len = parseInt(lengthInput.value) || 0;
+    const len = parseInt(lengthInput.value);
+    if(len < 4){ alert("Parola en az 4 karakter olmalı."); return; }
 
-    const reqU = parseInt(reqUpperInput.value) || 0;
-    const reqL = parseInt(reqLowerInput.value) || 0;
-    const reqN = parseInt(reqNumInput.value) || 0;
-    const reqS = parseInt(reqSymInput.value) || 0;
+    const U="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const L="abcdefghijklmnopqrstuvwxyz";
+    const N="0123456789";
+    const S="!@#$%^&*()-_=+[]{};:,.<>/?";
 
-    const totalRequired = reqU + reqL + reqN + reqS;
+    let pool="", pw=[];
 
-    if (len < 4) {
-        alert("Parola uzunluğu en az 4 olmalı.");
-        return;
-    }
+    if(upperCb.checked) pool += U;
+    if(lowerCb.checked) pool += L;
+    if(numbersCb.checked) pool += N;
+    if(symbolsCb.checked) pool += S;
 
-    if (totalRequired > len) {
-        alert("Zorunlu karakter sayılarının toplamı parola uzunluğunu geçemez!");
-        return;
-    }
+    if(!pool.length){ alert("En az bir karakter tipi seçmelisin!"); return; }
 
-    const U = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const L = "abcdefghijklmnopqrstuvwxyz";
-    const N = "0123456789";
-    const S = "!@#$%^&*()-_=+[]{};:,.<>/?";
+    while(pw.length < len) pw.push(rand(pool));
 
-    let pw = [];
-
-    /* Zorunlu karakterleri ekle (en az şu kadar olsun) */
-    for (let i = 0; i < reqU; i++) pw.push(rand(U));
-    for (let i = 0; i < reqL; i++) pw.push(rand(L));
-    for (let i = 0; i < reqN; i++) pw.push(rand(N));
-    for (let i = 0; i < reqS; i++) pw.push(rand(S));
-
-    /* Havuz oluştur */
-    let pool = "";
-    if (upperCb.checked) pool += U;
-    if (lowerCb.checked) pool += L;
-    if (numbersCb.checked) pool += N;
-    if (symbolsCb.checked) pool += S;
-
-    if (!pool.length) {
-        alert("En az bir karakter tipi seçmelisin!");
-        return;
-    }
-
-    /* Kalan karakterleri doldur, toplam uzunluk = len */
-    while (pw.length < len) {
-        pw.push(rand(pool));
-    }
-
-    /* Karıştır (Fisher–Yates) */
-    for (let i = pw.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [pw[i], pw[j]] = [pw[j], pw[i]];
+    /* Fisher-Yates */
+    for(let i=pw.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
+        [pw[i],pw[j]]=[pw[j],pw[i]];
     }
 
     const finalPw = pw.join("");
-
     passwordInput.value = finalPw;
     updateStrength(finalPw);
     updateQR();
 }
 
-/* ========== ANLAMLI PAROLA OLUŞTURMA ========== */
-function generateMeaningful() {
+/* Anlamlı parola */
+function generateMeaningful(){
     playSound();
+    const words=["kedi","mavi","gunes","dalga","bulut","cay","kirmizi","koala","simsek","sultan","cam","deniz","yildiz"];
+    let w=words[Math.floor(Math.random()*words.length)];
+    let num=Math.floor(100+Math.random()*900);
+    let sym="!@#$%&*"[Math.floor(Math.random()*7)];
+    let pw=w+num+sym;
 
-    const words = ["kedi","mavi","gunes","dalga","bulut","cay","kirmizi","koala","simsek","sultan","cam","deniz","yildiz"];
-    let w = words[Math.floor(Math.random() * words.length)];
-    let num = Math.floor(100 + Math.random() * 900);
-    let sym = "!@#$%&*"[Math.floor(Math.random() * 7)];
-
-    let pw = w + num + sym;
-
-    passwordInput.value = pw;
+    passwordInput.value=pw;
     updateStrength(pw);
     updateQR();
 }
 
-/* ========== GÜÇ GÖSTERGESİ ========== */
-function updateStrength(pw) {
-    let score = 0;
+/* Güç hesaplama */
+function updateStrength(pw){
+    let score=0;
+    if(pw.length>=8) score++;
+    if(/[A-Z]/.test(pw)) score++;
+    if(/[a-z]/.test(pw)) score++;
+    if(/[0-9]/.test(pw)) score++;
+    if(/[!@#$%^&*()\-_=+\[\]{};:,.<>/?]/.test(pw)) score++;
 
-    if (pw.length >= 8) score++;
-    if (/[A-Z]/.test(pw)) score++;
-    if (/[a-z]/.test(pw)) score++;
-    if (/[0-9]/.test(pw)) score++;
-    if (/[!@#$%^&*()\-_=+\[\]{};:,.<>/?]/.test(pw)) score++;
+    const percent=(score/5)*100;
+    strengthFill.style.width = percent+"%";
 
-    const percent = (score / 5) * 100;
-    strengthFill.style.width = percent + "%";
-
-    if (percent < 40) strengthFill.style.background = "var(--weak)";
-    else if (percent < 80) strengthFill.style.background = "var(--medium)";
-    else strengthFill.style.background = "var(--strong)";
+    if(percent<40) strengthFill.style.background="var(--weak)";
+    else if(percent<80) strengthFill.style.background="var(--medium)";
+    else strengthFill.style.background="var(--strong)";
 }
 
-/* ========== KOPYALAMA ========== */
-function copyPassword() {
+/* Kopyalama */
+function copyPassword(){
     playSound();
-    if (!passwordInput.value) {
-        alert("Önce bir parola oluştur.");
-        return;
-    }
-
+    if(!passwordInput.value){ alert("Önce parola oluştur."); return; }
     navigator.clipboard.writeText(passwordInput.value);
 
-    let popup = document.getElementById("copyPopup");
+    let popup=document.getElementById("copyPopup");
     popup.classList.add("show");
-    setTimeout(() => popup.classList.remove("show"), 1000);
+    setTimeout(()=>popup.classList.remove("show"),1000);
 }
 
-/* ========== ŞİFRE GÖSTER/GİZLE ========== */
-function togglePassword() {
+/* Göster/Gizle */
+function togglePassword(){
     playSound();
-    if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-    } else {
-        passwordInput.type = "password";
-    }
+    passwordInput.type = passwordInput.type === "password" ? "text" : "password";
 }
 
-/* ========== TEMA DEĞİŞTİRME ========== */
-const themes = ["default","dark","blue","purple"];
-let tIndex = 0;
-
-function switchTheme() {
+/* Tema */
+const themes=["default","dark","blue","purple"];
+let tIndex=0;
+function switchTheme(){
     playSound();
-    tIndex = (tIndex + 1) % themes.length;
-    document.body.className = themes[tIndex];
+    tIndex=(tIndex+1)%themes.length;
+    document.body.className=themes[tIndex];
 }
 
-/* ========== QR KOD ========== */
-const qrCanvas = document.getElementById("qrBox");
-let qr = new QRious({
-    element: qrCanvas,
-    size: 200,
-    value: ""
-});
+/* QR */
+const qrCanvas=document.getElementById("qrBox");
+let qr=new QRious({ element:qrCanvas, size:200, value:"" });
 
-function updateQR() {
-    qr.value = passwordInput.value || "";
-}
+function updateQR(){ qr.value = passwordInput.value; }
 
-function toggleQR() {
+function toggleQR(){
     playSound();
-    if (!passwordInput.value) {
-        alert("Önce bir parola oluştur.");
-        return;
-    }
-    if (qrCanvas.style.display === "none" || qrCanvas.style.display === "") {
-        qrCanvas.style.display = "block";
-        updateQR();
-    } else {
-        qrCanvas.style.display = "none";
-    }
+    if(!passwordInput.value){ alert("Önce parola oluştur."); return; }
+    qrCanvas.style.display = qrCanvas.style.display==="none" ? "block" : "none";
+    updateQR();
 }
 
-/* Başlangıçta parolayı text tipi yapalım */
-passwordInput.type = "text";
+passwordInput.type="text";
 </script>
 
 </body>
